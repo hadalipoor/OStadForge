@@ -1,0 +1,54 @@
+{
+    "ProjectName" : "SabooraTanker",
+    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+    "Entities" : [
+
+    ],
+
+    "Apis": [
+        {
+            "name": "Tanker",
+            "Url": "/tanker",
+            "Apis": [
+                {
+                    "ApiName": "get_capacity",
+                    "EndPoint": "/tanker/get_capacity",
+                    "Method": "GET",
+                    "Data": {
+                    }
+                }
+            ]
+        }
+    ],
+
+    "Configs": [
+        {
+            "Key": "system_enable",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the entire system."
+        }
+    ],
+
+    "Modules": {
+        "Buttons": [
+            {
+                "PinNumber": "0",
+                "Name": "resetButton",
+                "ActiveHigh": "false",
+                "PullUpActive": "false",
+                "ButtonType": "ButtonType::PIN"
+            }
+        ],
+        "OLEDLCDs": [
+            
+        ],
+        "Relays": [
+           
+        ],
+        "RFID125Khs": [
+            
+        ]
+    }
+   
+
+}

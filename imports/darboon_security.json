@@ -1,0 +1,132 @@
+{
+    "ProjectName" : "DarboonTemp2",
+    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+    "Entities" : [
+        {
+            "name": "Guests",
+            "columns": [
+                {
+                    "name": "Name",
+                    "type": "String"
+                },
+                {
+                    "name": "Description",
+                    "type": "String"
+                },
+                {
+                    "name": "UId",
+                    "type": "String"
+                },
+                {
+                    "name": "Active",
+                    "type": "int"
+                },
+                {
+                    "name": "StartActiveTime",
+                    "type": "EBPDateTime"
+                },
+                {
+                    "name": "EndActiveTime",
+                    "type": "EBPDateTime"
+                }
+            ]
+        },{
+            "name": "DoorLog",
+            "columns": [
+                {
+                    "name": "UId",
+                    "type": "String"
+                },
+                {
+                    "name": "GuestId",
+                    "type": "int"
+                },
+                {
+                    "name": "DoorOpened",
+                    "type": "int"
+                },
+                {
+                    "name": "TagReadTime",
+                    "type": "EBPDateTime"
+                }
+            ]
+        }
+    ],
+
+    "Apis": [
+        {
+            "name": "TagController",
+            "Url": "/tagcontroller",
+            "Apis": [
+                {
+                    "ApiName": "AddGuest",
+                    "EndPoint": "/tagcontroller/addguest",
+                    "Method": "POST",
+                    "Data": {
+                        "name": "name",
+                        "description": "desc",
+                        "start_active_time": "2024-2-29 00:00:01",
+                        "end_active_time": "2024-2-29 00:00:01"
+                    }
+                },
+                {
+                    "ApiName": "OpenDoor",
+                    "EndPoint": "/tagcontroller/opendoor",
+                    "Method": "POST",
+                    "Data": {
+                        
+                    }
+                }
+            ]
+        }
+    ],
+
+    "Configs": [
+        {
+            "Key": "system_enable",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the entire system."
+        },
+        {
+            "Key": "rfid_enable",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the openning door by rfid tag reader system."
+        },
+        {
+            "Key": "wifi_open_door",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the openning door by Wifi and api system."
+        }
+    ],
+
+    "Modules": {
+        "Buttons": [
+            {
+                "PinNumber": "0",
+                "Name": "resetButton",
+                "ActiveHigh": "false",
+                "PullUpActive": "false",
+                "ButtonType": "ButtonType::PIN"
+            }
+        ],
+        "OLEDLCDs": [
+            
+        ],
+        "Relays": [
+            {
+                "PinNumber": "26",
+                "Name": "doorRelay",
+                "NormallyOpen": "true"
+            }
+        ],
+        "RFID125Khs": [
+            {
+                "Name": "mainRFID",
+                "Pin0": "26",
+                "Pin1": "27"
+            }
+        ]
+    }
+   
+
+}

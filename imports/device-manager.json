@@ -1,0 +1,57 @@
+{
+    "ProjectName" : "Authentication",
+    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+    "Entities" : [
+        {
+            "name": "Devices",
+            "columns": [
+                {
+                    "name": "Username",
+                    "type": "String"
+                }
+            ]
+        }
+    ],
+    "Apis": [
+        {
+            "name": "Authentication",
+            "Url": "/authentication",
+            "Apis": [
+                {
+                    "ApiName": "Login",
+                    "EndPoint": "/authentication/login",
+                    "Method": "POST",
+                    "Data": {
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                }
+            ]
+        }
+    ],
+    "Configs": [
+        {
+            "Key": "network_type",
+            "DefaultValue": "server_client",
+            "Comment": ""
+        },
+        {
+            "Key": "is_server",
+            "DefaultValue": "true",
+            "Comment": ""
+        },
+        {
+            "Key": "device_id",
+            "DefaultValue": "",
+            "Comment": ""
+        },
+        {
+            "Key": "",
+            "DefaultValue": "",
+            "Comment": ""
+        }
+    ],
+    "Modules": {
+        
+    }
+}

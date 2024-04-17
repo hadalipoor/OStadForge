@@ -1,0 +1,82 @@
+{
+    "ProjectName" : "SabooraHub2",
+    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+    "Entities" : [
+
+    ],
+
+    "Apis": [
+        {
+            "name": "Light",
+            "Url": "/light",
+            "Apis": [
+                {
+                    "ApiName": "switch_garden_lights",
+                    "EndPoint": "/light/switch_garden_lights",
+                    "Method": "GET",
+                    "Data": {
+                        "status": "on"
+                    }
+                },
+                {
+                    "ApiName": "switch_gazebo_lights",
+                    "EndPoint": "/light/switch_gazebo_lights",
+                    "Method": "GET",
+                    "Data": {
+                        "status": "on"
+                    }
+                }
+            ]
+        }
+    ],
+
+    "Configs": [
+        {
+            "Key": "system_enable",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the entire system."
+        },
+        {
+            "Key": "rfid_enable",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the openning door by rfid tag reader system."
+        },
+        {
+            "Key": "wifi_open_door",
+            "DefaultValue": "true",
+            "Comment": "Enables or disables the openning door by Wifi and api system."
+        }
+    ],
+
+    "Modules": {
+        "Buttons": [
+            {
+                "PinNumber": "0",
+                "Name": "resetButton",
+                "ActiveHigh": "false",
+                "PullUpActive": "false",
+                "ButtonType": "ButtonType::PIN"
+            }
+        ],
+        "OLEDLCDs": [
+            
+        ],
+        "Relays": [
+            {
+                "PinNumber": "26",
+                "Name": "lightRelay",
+                "NormallyOpen": "false"
+            },
+            {
+                "PinNumber": "25",
+                "Name": "gazebolightRelay",
+                "NormallyOpen": "false"
+            }
+        ],
+        "RFID125Khs": [
+            
+        ]
+    }
+   
+
+}
