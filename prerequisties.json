@@ -9,7 +9,7 @@
         {"Name": "Adafruit_BusIO", "Link": "https://github.com/adafruit/Adafruit_BusIO/archive/refs/heads/master.zip", "Description": "Bus IO library from Adafruit."},
         {"Name": "LiquidCrystal_I2C", "Link": "https://github.com/johnrickman/LiquidCrystal_I2C/archive/refs/heads/master.zip", "Description": "LCD library for Arduino with I2C."},
         {"Name": "Adafruit-GFX-Library", "Link": "https://github.com/adafruit/Adafruit-GFX-Library/archive/refs/heads/master.zip", "Description": "Base library for Adafruit's GFX library."},
-        {"Name": "Adafruit-SSD1306", "Link": "https://github.com/adafruit/Adafruit_SSD1306/archive/refs/heads/master.zip", "Description": "Library for SSD1306-based OLED displays."},
+        {"Name": "Adafruit_SSD1306", "Link": "https://github.com/adafruit/Adafruit_SSD1306/archive/refs/heads/master.zip", "Description": "Library for SSD1306-based OLED displays."},
         {"Name": "Wiegand", "Link": "https://github.com/monkeyboard/Wiegand-Protocol-Library-for-Arduino/archive/refs/heads/master.zip", "Description": "Arduino library for Wiegand protocol."}
     ]
 }
