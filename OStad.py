@@ -7,6 +7,7 @@ from tkinter import filedialog
 sys.path.append(os.path.join(os.path.dirname(__file__), 'generator'))
 from generator import *
 import json
+import prequisties
 
 def validate_json_structure(json_string):
     try:
@@ -120,6 +121,11 @@ def generate_from_gui():
 
 
 def main():
+    if prequisties.initialize():
+        print("OStad prequisties are initialized.")
+    else:
+        print("OStad prequisties initializing failed.")
+        return
     parser = argparse.ArgumentParser(description="JSON File Generator")
     parser.add_argument("command", nargs='?', help="Command to execute ('generate')")
     parser.add_argument("JSON_PATH", nargs='?', help="Path to JSON file")

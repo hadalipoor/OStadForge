@@ -3,6 +3,8 @@ import requests
 import os
 import sys
 import platform
+import zipfile
+import tarfile
 
 def is_tool_installed(name):
     """Check if tool is installed by attempting to call it."""
@@ -34,18 +36,33 @@ def download_arduino_cli():
     except requests.RequestException as e:
         return False, str(e)
 
+def extract_files(file_content, file_path, os_type):
+    """Extract files from zip or tar.gz based on OS."""
+    if os_type == "Windows":
+        with zipfile.ZipFile(file_path, 'r') as zip_ref:
+            zip_ref.extractall(os.path.dirname(file_path))
+    else:
+        with tarfile.open(file_path, 'r:gz') as tar_ref:
+            tar_ref.extractall(os.path.dirname(file_path))
+    os.remove(file_path)  # Remove the archive after extraction
+
 def install_arduino_cli(binary_content, os_type):
     """Install arduino-cli binary and add it to the system PATH."""
     install_path = "/usr/local/bin" if os_type != "Windows" else os.environ['USERPROFILE'] + "\\ArduinoCLI"
     if not os.path.exists(install_path):
         os.makedirs(install_path)
-    binary_path = os.path.join(install_path, "arduino-cli")
+    binary_path = os.path.join(install_path, f"arduino-cli{'_latest.zip' if os_type == 'Windows' else '_latest.tar.gz'}")
     
+    # Write the binary content to a zip or tar.gz file
     with open(binary_path, 'wb') as binary_file:
         binary_file.write(binary_content)
 
+    # Extract the archive
+    extract_files(binary_content, binary_path, os_type)
+
+    executable_path = os.path.join(install_path, "arduino-cli")
     if os_type != "Windows":
-        os.chmod(binary_path, 0o755)  # Make it executable
+        os.chmod(executable_path, 0o755)  # Make it executable
 
     # Adding to PATH
     if os_type == "Windows":
@@ -55,4 +72,4 @@ def install_arduino_cli(binary_content, os_type):
         with open(profile_script, "a") as bashrc:
             bashrc.write(f'\nexport PATH="$PATH:{install_path}"\n')
 
-    return True
+    return True, executable_path
