@@ -1,6 +1,6 @@
 {
-    "ProjectName" : "SmartGrowth",
-    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+    "ProjectName" : "Growify",
+    "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\",
     "Entities" : [
         {
             "name" : "PlantsType",
