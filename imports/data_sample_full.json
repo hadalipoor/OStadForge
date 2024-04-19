@@ -214,6 +214,18 @@
                 "NormallyOpen": "true"
             }
         ],
+        "DHT11": [
+            {
+                "PinNumber": "33",
+                "Name": "mainTemperatureHumiditySensor"
+            }
+        ],
+        "DHT22": [
+            {
+                "PinNumber": "34",
+                "Name": "secondaryTemperatureHumiditySensor"
+            }
+        ],
         "SoilMoistureSensors": [
             {
                 "Name": "SOIL_SENSOR_NAME",
