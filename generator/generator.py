@@ -9,6 +9,7 @@ from devicemanager import generate_devicemanager
 from project_class import generate_main_classes, generate_project_class
 from postman import generate_postman_json
 from certificate_generator import generate_certificate
+from vscode_prequisties import generate_vscode_files
 
 def generate_file(file_path, code):
     # This function writes code to a file. It first checks if the file already exists.
@@ -26,15 +27,6 @@ def generate_all(json_data):
     apis = json_data["Apis"]
     configs = json_data["Configs"]
     modules = json_data["Modules"]
-
-    config_entity = {
-        "name": f"{project_name}Config",
-        "columns": [
-            {"name": "Key", "type": "String"},
-            {"name": "Value", "type": "String"}
-        ]
-    }
-    entities.append(config_entity)
     
     # Step 2: Generate the code.
     entity_code = [generate_entity_and_controller(entity) for entity in entities]
@@ -47,9 +39,12 @@ def generate_all(json_data):
     main_code = generate_main_classes(project_name)
     apis_file = generate_apis_file(project_name, apis, entities)
     postman_import = generate_postman_json(json_data)
+    vscode_preq = generate_vscode_files(project_name)
+
     permissions = []
     
     # Step 3: Create directories if they do not exist.
+    os.makedirs(os.path.join(project_path, project_name, '.vscode'), exist_ok=True)
     os.makedirs(os.path.join(project_path, project_name, 'postman_import'), exist_ok=True)
     os.makedirs(os.path.join(project_path, project_name, 'src'), exist_ok=True)
     os.makedirs(os.path.join(project_path, project_name, 'src', 'Apis'), exist_ok=True)
@@ -88,6 +83,7 @@ def generate_all(json_data):
     generate_file(os.path.join(project_path, project_name, 'src', 'Config', 'Default' + project_name + 'Configs.h'), config_code['default_config_code'])
     generate_file(os.path.join(project_path, project_name, 'src', 'Config', project_name + 'ConfigKeys.h'), config_key_code)
     generate_file(os.path.join(project_path, project_name, 'src', 'Database', 'Controllers', project_name + 'ConfigController.h'), config_code['config_controller_code'])
+    generate_file(os.path.join(project_path, project_name, 'src', 'Database', 'Entities', project_name + 'ConfigEntity.h'), config_code['config_entity_code'])
 
     generate_file(os.path.join(project_path, project_name, 'src', 'DeviceManager', 'DeviceManager.h'), device_manager_code['devicemanager_code'])
     generate_file(os.path.join(project_path, project_name, 'src', 'DeviceManager', 'IDeviceManager.h'), device_manager_code['idevicemanager_code'])
@@ -101,6 +97,8 @@ def generate_all(json_data):
     generate_file(os.path.join(project_path, project_name, 'src', 'cert_key.h'), cert_key_data)
     generate_file(os.path.join(project_path, project_name, project_name + '.ino'), main_code['main_ino_code'])
     generate_file(os.path.join(project_path, project_name, 'postman_import', project_name + '.json'), json.dumps(postman_import))
+    generate_file(os.path.join(project_path, project_name, '.vscode', 'arduino.json'), vscode_preq['arduino_json'])
+    generate_file(os.path.join(project_path, project_name, '.vscode', 'settings.json'), vscode_preq['settings_json'])
     return { 'message' : f"Code generation for the project '{project_name}' is complete. You can find all the generated files at:\n{project_path}.\n\n\n*** Enjoy It! :) ***\nhadalipoor@gmail.com\nOStad.wiki",
             'project_path' : project_path,
             'project_name' : project_name

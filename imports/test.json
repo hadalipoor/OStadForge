@@ -1,9 +1,9 @@
 {
     "ProjectName" : "Test",
-        "ProjectPath" : "C:\\Users\\AIVWA 1\\Documents\\Arduino\\libraries\\OStad\\Examples",
+        "ProjectPath" : "C:\\Projects\\Arduino\\",
     "Entities" : [
         {
-            "name": "User",
+            "name": "Guests",
             "columns": [
                 {
                     "name": "Name",
@@ -35,8 +35,8 @@
 
     "Apis": [
         {
-            "name": "Authentication",
-            "Url": "/authentication",
+            "name": "TestApis",
+            "Url": "/testapis",
             "Apis": [
                 {
                     "ApiName": "Login",
@@ -93,6 +93,12 @@
                 "PinNumber": "0",
                 "Name": "pumpRelay",
                 "NormallyOpen": "true"
+            }
+        ],
+        "DHT22": [
+            {
+                "PinNumber": "35",
+                "Name": "mainTemperatureHumiditySensor"
             }
         ],
         "SoilMoistureSensors": [

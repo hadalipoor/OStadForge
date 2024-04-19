@@ -5,7 +5,7 @@ import argparse
 import tkinter as tk
 from tkinter import filedialog
 sys.path.append(os.path.join(os.path.dirname(__file__), 'generator'))
-from generator import *
+import generator
 import json
 import prequisties
 
@@ -55,7 +55,7 @@ def generate_from_cli(path):
         json_data = json.load(f)
     if not validate_json_structure(json_data):
         return "wrong json format"
-    return generate_all(json_data)
+    return generator.generate_all(json_data)
 
 def generate_from_gui():
     def select_file():
@@ -78,7 +78,7 @@ def generate_from_gui():
                             'project_path' : '',
                             'project_name' : ''}
                 else:
-                    result = generate_all(json_data)
+                    result = generator.generate_all(json_data)
                     open_project_button.config(command=lambda: open_project_path(os.path.join(project_path, project_name)))
                     open_project_button.pack(pady=10)  # Show the button
 

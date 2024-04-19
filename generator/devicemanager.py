@@ -1,5 +1,5 @@
 def generate_devicemanager(modules):
-    module_types = ['Buttons', 'LCD16X2s', 'OLEDLCDs', 'Relays', 'SoilMoistureSensors', 'RFIDPN532s', 'RFID125Khs']
+    module_types = ['Buttons', 'LCD16X2s', 'OLEDLCDs', 'Relays', 'SoilMoistureSensors', 'RFIDPN532s', 'RFID125Khs', 'DHT11', 'DHT22']
 
     idevicemanager_code_template = '''
 #ifndef IDEVICEMANAGER_H
@@ -101,7 +101,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     initialize += f'    _{name} = new Button({module["PinNumber"]}, "{name}", {module["ActiveHigh"]}, {module["PullUpActive"]}, {module["ButtonType"]});\n'
                     # initialize += f'    //appContext->systemContext->getModules()->addButton(_{name});\n\n'
                     update += f'    _{name}->update();\n'
-                    getter_impl += f'Button* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getButton("{name}");\n}}\n\n'
+                    getter_impl += f'Button* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'LCD16X2s':
                     getters += f'    virtual LCD16X2* {name}() = 0;\n'
@@ -109,7 +109,23 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     module_names.append(f'LCD16X2* _{name};\n')
                     initialize += f'    _{name} = new LCD16X2("{name}", {module["Address"]}, {module["Width"]}, {module["Height"]});\n'
                     # initialize += f'    appContext->systemContext->getModules()->addLCD16X2(_{name});\n\n'
-                    getter_impl += f'LCD16X2* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getLCD16X2("{name}");\n}}\n\n'
+                    getter_impl += f'LCD16X2* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
+
+                elif module_type == 'DHT11':
+                    getters += f'    virtual DHTSensor* {name}() = 0;\n'
+                    getter_implementations.append(f'DHTSensor* {name}() override;')
+                    module_names.append(f'DHTSensor* _{name};\n')
+                    initialize += f'    _{name} = new DHTSensor({pin}, DHTType::DHT11);\n'
+                    # initialize += f'    appContext->systemContext->getModules()->addDHT11(_{name});\n\n'
+                    getter_impl += f'DHTSensor* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
+
+                elif module_type == 'DHT22':
+                    getters += f'    virtual DHTSensor* {name}() = 0;\n'
+                    getter_implementations.append(f'DHTSensor* {name}() override;')
+                    module_names.append(f'DHTSensor* _{name};\n')
+                    initialize += f'    _{name} = new DHTSensor({pin}, DHTType::DHT22);\n'
+                    # initialize += f'    appContext->systemContext->getModules()->addDHT11(_{name});\n\n'
+                    getter_impl += f'DHTSensor* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'OLEDLCDs':
                     getters += f'    virtual OLEDLCD* {name}() = 0;\n'
@@ -117,7 +133,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     module_names.append(f'OLEDLCD* _{name};\n')
                     initialize += f'    _{name} = new OLEDLCD("{name}", {module["Address"]}, {module["Columns"]}, {module["Rows"]});\n'
                     # initialize += f'    appContext->systemContext->getModules()->addOLEDLCD(_{name});\n\n'
-                    getter_impl += f'OLEDLCD* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getOLEDLCD("{name}");\n}}\n\n'
+                    getter_impl += f'OLEDLCD* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'Relays':
                     getters += f'    virtual Relay* {name}() = 0;\n'
@@ -126,7 +142,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     initialize += f'    _{name} = new Relay({module["PinNumber"]}, "{name}", {module["NormallyOpen"]});\n'
                     # initialize += f'    appContext->systemContext->getModules()->addRelay(_{name});\n\n'
                     update += f'    _{name}->update();\n'
-                    getter_impl += f'Relay* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getRelay("{name}");\n}}\n\n'
+                    getter_impl += f'Relay* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'RFIDPN532s':
                     getters += f'    virtual RFIDPN532* {name}() = 0;\n'
@@ -135,7 +151,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     initialize += f'    _{name} = new RFIDPN532({module["ssPin"]}, "{name}");\n'
                     # initialize += f'    appContext->systemContext->getModules()->addRFIDPN532(_{name});\n\n'
                     update += f'    _{name}->update();\n'
-                    getter_impl += f'RFIDPN532* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getRFIDPN532("{name}");\n}}\n\n'
+                    getter_impl += f'RFIDPN532* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'RFID125Khs':
                     getters += f'    virtual RFID125Kh* {name}() = 0;\n'
@@ -144,7 +160,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     initialize += f'    _{name} = new RFID125Kh("{name}", {module["Pin0"]}, {module["Pin0"]});\n'
                     # initialize += f'    appContext->systemContext->getModules()->addRFID125Kh(_{name});\n\n'
                     update += f'    _{name}->update();\n'
-                    getter_impl += f'RFID125Kh* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getRFID125Kh("{name}");\n}}\n\n'
+                    getter_impl += f'RFID125Kh* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
                 elif module_type == 'SoilMoistureSensors':
                     getters += f'    virtual SoilMoistureSensor* {name}() = 0;\n'
@@ -152,7 +168,7 @@ const uint8_t Pins::BUILTIN_LED = 2;
                     module_names.append(f'SoilMoistureSensor* _{name};\n')
                     initialize += f'    _{name} = new SoilMoistureSensor("{name}", "{module["ConnectionType"]}", {module["NodeId"]}, {module["SensorPin"]}, {module["DryThreshold"]}, {module["WetThreshold"]});\n'
                     # initialize += f'    appContext->systemContext->getModules()->addSoilMoistureSensor(_{name});\n\n'
-                    getter_impl += f'SoilMoistureSensor* DeviceManager::{name}()\n{{\n    return appContext->systemContext->getModules()->getSoilMoistureSensor("{name}");\n}}\n\n'
+                    getter_impl += f'SoilMoistureSensor* DeviceManager::{name}()\n{{\n    return _{name};\n}}\n\n'
 
     idevicemanager_code = idevicemanager_code_template.format(
         getters=getters,

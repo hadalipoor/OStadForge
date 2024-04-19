@@ -1,4 +1,5 @@
 system_apis = """
+
 {
 	"info": {
 		"_postman_id": "2a331397-a133-4d9c-9937-a09a939a7511",
@@ -1523,264 +1524,264 @@ system_apis = """
 					"name": "Authorization",
                     "item":[
                     {
-    "name": "AccountActivityLogAPI",
-    "item": [
-        {
-            "name": "Create Log Entry",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/activitylog/create",
-                    "path": [
-                        "activitylog",
-                        "create"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        },
-                        {
-                            "key": "action",
-                            "value": "LoginAttempt"
-                        },
-                        {
-                            "key": "status",
-                            "value": "Success"
-                        },
-                        {
-                            "key": "timestamp",
-                            "value": "2023-09-15T12:00:00Z"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Get Log Entries",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/activitylog/get",
-                    "path": [
-                        "activitylog",
-                        "get"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        },
-                        {
-                            "key": "startDate",
-                            "value": "2023-09-01"
-                        },
-                        {
-                            "key": "endDate",
-                            "value": "2023-09-15"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Update Log Entry",
-            "request": {
-                "method": "PUT",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/activitylog/update",
-                    "path": [
-                        "activitylog",
-                        "update"
-                    ],
-                    "query": [
-                        {
-                            "key": "logId",
-                            "value": "98765"
-                        },
-                        {
-                            "key": "status",
-                            "value": "Failed"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Delete Log Entry",
-            "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/activitylog/delete",
-                    "path": [
-                        "activitylog",
-                        "delete"
-                    ],
-                    "query": [
-                        {
-                            "key": "logId",
-                            "value": "98765"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        }
-    ]
-},
-{
-    "name": "AccountLockoutAPI",
-    "item": [
-        {
-            "name": "Lock Account",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/account/lock",
-                    "path": [
-                        "account",
-                        "lock"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        },
-                        {
-                            "key": "reason",
-                            "value": "TooManyFailedAttempts"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Unlock Account",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/account/unlock",
-                    "path": [
-                        "account",
-                        "unlock"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Check Lockout Status",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/account/lockoutstatus",
-                    "path": [
-                        "account",
-                        "lockoutstatus"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        }
-    ]
-},
-{
-    "name": "AuthenticationAPI",
-    "item": [
-        {
-            "name": "Login",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/auth/login",
-                    "path": [
-                        "auth",
-                        "login"
-                    ],
-                    "query": [
-                        {
-                            "key": "username",
-                            "value": "user@example.com"
-                        },
-                        {
-                            "key": "password",
-                            "value": "password123"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Logout",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/auth/logout",
-                    "path": [
-                        "auth",
-                        "logout"
-                    ],
-                    "query": [
-                        {
-                            "key": "userId",
-                            "value": "12345"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "Check Authentication Status",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/auth/status",
-                    "path": [
-                        "auth",
-                        "status"
-                    ],
-                    "query": [
-                        {
-                            "key": "token",
-                            "value": "abcdef123456"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        }
-    ]
-},
-
-                    ]
+						"name": "AccountActivityLogAPI",
+						"item": [
+							{
+								"name": "Create Log Entry",
+								"request": {
+									"method": "POST",
+									"header": [],
+									"url": {
+										"raw": "https://api.example.com/activitylog/create",
+										"path": [
+											"activitylog",
+											"create"
+										],
+										"query": [
+											{
+												"key": "userId",
+												"value": "12345"
+											},
+											{
+												"key": "action",
+												"value": "LoginAttempt"
+											},
+											{
+												"key": "status",
+												"value": "Success"
+											},
+											{
+												"key": "timestamp",
+												"value": "2023-09-15T12:00:00Z"
+											}
+										]
+									}
+								},
+								"response": []
+							},
+							{
+								"name": "Get Log Entries",
+								"request": {
+									"method": "GET",
+									"header": [],
+									"url": {
+										"raw": "https://api.example.com/activitylog/get",
+										"path": [
+											"activitylog",
+											"get"
+										],
+										"query": [
+											{
+												"key": "userId",
+												"value": "12345"
+											},
+											{
+												"key": "startDate",
+												"value": "2023-09-01"
+											},
+											{
+												"key": "endDate",
+												"value": "2023-09-15"
+											}
+										]
+									}
+								},
+								"response": []
+							},
+							{
+								"name": "Update Log Entry",
+								"request": {
+									"method": "PUT",
+									"header": [],
+									"url": {
+										"raw": "https://api.example.com/activitylog/update",
+										"path": [
+											"activitylog",
+											"update"
+										],
+										"query": [
+											{
+												"key": "logId",
+												"value": "98765"
+											},
+											{
+												"key": "status",
+												"value": "Failed"
+											}
+										]
+									}
+								},
+								"response": []
+							},
+							{
+								"name": "Delete Log Entry",
+								"request": {
+									"method": "DELETE",
+									"header": [],
+									"url": {
+										"raw": "https://api.example.com/activitylog/delete",
+										"path": [
+											"activitylog",
+											"delete"
+										],
+										"query": [
+											{
+												"key": "logId",
+												"value": "98765"
+											}
+										]
+									}
+								},
+								"response": []
+							}
+						]
+					}
+					]
+				},
+				{
+					"name": "AccountLockoutAPI",
+					"item": [
+						{
+							"name": "Lock Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/account/lock",
+									"path": [
+										"account",
+										"lock"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "12345"
+										},
+										{
+											"key": "reason",
+											"value": "TooManyFailedAttempts"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unlock Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/account/unlock",
+									"path": [
+										"account",
+										"unlock"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Lockout Status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/account/lockoutstatus",
+									"path": [
+										"account",
+										"lockoutstatus"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AuthenticationAPI",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/auth/login",
+									"path": [
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "user@example.com"
+										},
+										{
+											"key": "password",
+											"value": "password123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/auth/logout",
+									"path": [
+										"auth",
+										"logout"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Authentication Status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.example.com/auth/status",
+									"path": [
+										"auth",
+										"status"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "abcdef123456"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Clock",
 					"item": [
@@ -3089,4 +3090,5 @@ system_apis = """
 			]
 		}
 	]
-}"""
+}
+"""

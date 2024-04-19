@@ -57,11 +57,11 @@ public:
     }}
 
     String get(const String& key) {{
-        std::vector<KeyValueEntity> {class_name_lower}ConfigEntities  = {class_name_lower}ConfigController->Get(KeyValueEntity::COLUMN_KEY + "=" + key);
+        std::vector<{class_name}ConfigEntity> {class_name_lower}ConfigEntities  = {class_name_lower}ConfigController->Get({class_name}ConfigEntity::COLUMN_KEY + "=" + key);
         
         if ({class_name_lower}ConfigEntities.size() > 0)
         {{
-            KeyValueEntity configEntity = {class_name_lower}ConfigEntities.at(0);
+            {class_name}ConfigEntity configEntity = {class_name_lower}ConfigEntities.at(0);
             configEntity.fromString(configEntity.toString());
             if (configEntity.id == -1) {{
                 return "";
@@ -71,14 +71,14 @@ public:
         }}
         else
         {{
-            KeyValueEntity* keyValueEntity = new KeyValueEntity(key,Default{class_name}Configs::get(key));
-            {class_name_lower}ConfigController->Add(*keyValueEntity);
+            {class_name}ConfigEntity* {class_name_lower}ConfigEntity = new {class_name}ConfigEntity(key,Default{class_name}Configs::get(key));
+            {class_name_lower}ConfigController->Add(*{class_name_lower}ConfigEntity);
             return Default{class_name}Configs::get(key);
         }}
     }}
 
     void set(const String& key, const String& value) {{
-        KeyValueEntity configEntity = {class_name_lower}ConfigController->Get(KeyValueEntity::COLUMN_KEY + "=" + key).at(0);
+        {class_name}ConfigEntity configEntity = {class_name_lower}ConfigController->Get({class_name}ConfigEntity::COLUMN_KEY + "=" + key).at(0);
         if (configEntity.id == -1) {{ // Key does not exist
             configEntity.setKey(key);
             configEntity.setValue(value);
@@ -139,17 +139,77 @@ const String Default{class_name}Configs::jsonString = R"(
 #define {class_name_upper}CONFIGCONTROLLER_H
 
 #include "../../AppContext.h"
+#include "../Entities/{class_name}ConfigEntity.h"
 
-class {class_name}ConfigController : public MainController<KeyValueEntity>{{
+class {class_name}ConfigController : public MainController<{class_name}ConfigEntity>{{
 protected:
 public:
     AppContext* appContext;
-    {class_name}ConfigController(AppContext* appContext, StorageType _storageType) : MainController<KeyValueEntity>(appContext->systemContext ,"{class_name_lower}_config", _storageType), appContext(appContext) {{}}
+    {class_name}ConfigController(AppContext* appContext, StorageType _storageType) : MainController<{class_name}ConfigEntity>(appContext->systemContext ,"{class_name_lower}_config", _storageType), appContext(appContext) {{}}
 
 }};
 
 #endif //{class_name_upper}CONFIGCONTROLLER_H
     '''
+
+    config_entity_code_template = '''
+#ifndef {class_name_upper}ENTITY_H
+#define {class_name_upper}ENTITY_H
+
+#include <OStad.h>
+
+class {class_name}ConfigEntity : public Entity {{
+public:
+    static const String COLUMN_KEY;
+    static const String COLUMN_VALUE;
+
+    String key;
+    String value;
+
+    {class_name}ConfigEntity() : Entity() {{}}
+
+    {class_name}ConfigEntity(int id, const String &_key, const String &_value) : Entity() {{
+        this->id = id;
+        key = _key;
+        value = _value;
+        addColumn(COLUMN_KEY, key, "string");
+        addColumn(COLUMN_VALUE, value, "string");
+    }}
+
+    {class_name}ConfigEntity(const String &_key, const String &_value) : {class_name}ConfigEntity(0, _key, _value) {{}}
+
+    static {class_name}ConfigEntity fromEntity(Entity entity)
+    {{
+        {class_name}ConfigEntity systemConfigEntity = {class_name}ConfigEntity();
+        systemConfigEntity.fromString(entity.toString());
+        return systemConfigEntity;
+    }}
+
+    void setKey(const String &_key) {{
+        key = _key;
+        SetValue(COLUMN_KEY, _key);
+    }}
+
+    String getKey() {{
+        return GetValue(COLUMN_KEY);
+    }}
+
+    void setValue(const String &_value) {{
+        value = _value;
+        SetValue(COLUMN_VALUE, _value);
+    }}
+
+    String getValue() {{
+        return GetValue(COLUMN_VALUE);
+    }}
+}};
+
+const String {class_name}ConfigEntity::COLUMN_KEY = "key";
+const String {class_name}ConfigEntity::COLUMN_VALUE = "value";
+
+#endif // {class_name_upper}ENTITY_H
+
+'''
     configs_str = ',\n    '.join(f'"{conf["Key"]}" : "{conf["DefaultValue"]}"' for conf in config)
 
     config_code = config_code_template.format(
@@ -170,4 +230,10 @@ public:
         class_name_lower=class_name.lower(),
     )
 
-    return {'config_code': config_code, 'default_config_code': default_config_code, 'config_controller_code': config_controller_code}
+    config_entity_code = config_entity_code_template.format(
+        class_name_upper=class_name.upper(),
+        class_name=class_name,
+        class_name_lower=class_name.lower(),
+    )
+
+    return {'config_code': config_code, 'default_config_code': default_config_code, 'config_controller_code': config_controller_code, 'config_entity_code': config_entity_code}
